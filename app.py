@@ -158,7 +158,7 @@ if 'board' not in st.session_state:
     st.session_state.board = letras_partida
 
 ## --- INTERFACE ---
-st.markdown('<div class="festive-title">🎪 Jogo da Velha do Alfabeto em Inglês ( Teacher Paula) 🎶</div>', unsafe_allow_html=True)
+st.markdown('<div class="festive-title">🎪 Jogo da Velha do Alfabeto em Inglês  (Teacher Paula) 🎶</div>', unsafe_allow_html=True)
 
 # Painel de vitória com Fogos de Artifício
 if st.session_state.winner == "Student":
