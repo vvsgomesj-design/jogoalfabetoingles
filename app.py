@@ -5,7 +5,7 @@ import io
 import string
 
 # Configuração da página e injeção de estilos de festa animados
-st.set_page_config(page_title="Magic English Tic-Tac-Toe", layout="centered")
+st.set_page_config(page_title="Jogo da Velha de Alfabeto em Inglês", layout="centered")
 
 # Estilos CSS Avançados para Animações Festivas, Notas Dançantes e Fogos de Artifício
 st.markdown("""
