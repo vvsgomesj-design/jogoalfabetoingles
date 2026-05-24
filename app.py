@@ -5,7 +5,7 @@ import io
 import string
 
 # Configuração da página e injeção de estilos de festa animados
-st.set_page_config(page_title="Jogo da Velha de Alfabeto em Inglês", layout="centered")
+st.set_page_config(page_title="Jogo da Velha do Alfabeto em Inglês", layout="centered")
 
 # Estilos CSS Avançados para Animações Festivas, Notas Dançantes e Fogos de Artifício
 st.markdown("""
@@ -158,7 +158,7 @@ if 'board' not in st.session_state:
     st.session_state.board = letras_partida
 
 ## --- INTERFACE ---
-st.markdown('<div class="festive-title">🎪 Magic English Tic-Tac-Toe 🎶</div>', unsafe_allow_html=True)
+st.markdown('<div class="festive-title">🎪 Jogo da Velha do Alfabeto em Inglês 🎶</div>', unsafe_allow_html=True)
 
 # Painel de vitória com Fogos de Artifício
 if st.session_state.winner == "Student":
