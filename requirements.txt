@@ -1,1 +1,2 @@
-pip install streamlit speechrecognition pydub
+streamlit
+SpeechRecognition
