@@ -5,7 +5,7 @@ import io
 import string
 
 # Configuração da página e injeção de estilos de festa animados
-st.set_page_config(page_title="Jogo da Velha do Alfabeto em Inglês", layout="centered")
+st.set_page_config(page_title="Magic English Tic-Tac-Toe", layout="centered")
 
 # Estilos CSS Avançados para Animações Festivas, Notas Dançantes e Fogos de Artifício
 st.markdown("""
@@ -152,13 +152,13 @@ if 'board' not in st.session_state:
     st.session_state.msg = "🎈 Clique em uma Letra Dançante para começar a diversão!"
     st.session_state.last_heard = ""
     
-    # Sorteia as letras APENAS UMA VEZ no início do jogo inteiro
+    # Sorteia as letras APENAS UMA VEZ no início da rodada
     alfabeto = list(string.ascii_uppercase)
     letras_partida = random.sample(alfabeto, 9)
     st.session_state.board = letras_partida
 
 ## --- INTERFACE ---
-st.markdown('<div class="festive-title">🎪 Jogo da Velha do Alfabeto em Inglês 🎶</div>', unsafe_allow_html=True)
+st.markdown('<div class="festive-title">🎪 Magic English Tic-Tac-Toe 🎶</div>', unsafe_allow_html=True)
 
 # Painel de vitória com Fogos de Artifício
 if st.session_state.winner == "Student":
@@ -205,6 +205,15 @@ for r_idx, linha in enumerate(linhas_indices):
 
 st.write("")
 
+## --- BOTÃO DE DESISTIR / RECOMEÇAR NO MEIO DA PARTIDA ---
+# Aparece apenas enquanto a partida está rolando (ninguém ganhou ainda)
+if not st.session_state.winner and st.session_state.selected_letter is None:
+    if st.button("🏳️ Desistir / Recomeçar Partida", type="secondary", use_container_width=True):
+        for key in list(st.session_state.keys()):
+            del st.session_state[key]
+        st.toast("Partida reiniciada! Novas letras geradas.", icon="🔄")
+        st.rerun()
+
 ## --- CAIXA DE CAPTURA DE SOM COM NOTAS MUSICAIS DANÇANTES ---
 if st.session_state.selected_letter and not st.session_state.winner:
     letra_alvo = st.session_state.selected_letter
@@ -244,16 +253,15 @@ if st.session_state.selected_letter and not st.session_state.winner:
                 
                 if acertou:
                     st.toast("Fantástico! Pronúncia perfeita!", icon="✅")
-                    st.session_state.board[idx] = 'O'  # Marca o Círculo ⭕
+                    st.session_state.board[idx] = 'O'
                     
                     if check_winner(st.session_state.board, 'O'):
                         st.session_state.winner = "Student"
                         st.session_state.msg = "🎉 ESPETACULAR! VOCÊ GANHOU O JOGO DO ALFABETO!"
                     else:
-                        # Computador faz o movimento dele logo após o seu acerto
                         move_comp = get_computer_move(st.session_state.board)
                         if move_comp is not None:
-                            st.session_state.board[move_comp] = 'X'  # Marca o Xis ❌
+                            st.session_state.board[move_comp] = 'X'
                             if check_winner(st.session_state.board, 'X'):
                                 st.session_state.winner = "Computer"
                                 st.session_state.msg = "🤖 O robô marcou uma linha! Boa tentativa!"
@@ -264,7 +272,6 @@ if st.session_state.selected_letter and not st.session_state.winner:
                     st.toast("Quase lá! Tente na próxima rodada.", icon="❌")
                     st.session_state.msg = f"Ouvimos '{texto_falado}' para a letra '{letra_alvo}'. O robô aproveitou seu erro e jogou!"
                     
-                    # Se errar, o computador joga no seu lugar
                     move_comp = get_computer_move(st.session_state.board)
                     if move_comp is not None:
                         st.session_state.board[move_comp] = 'X'
@@ -272,7 +279,6 @@ if st.session_state.selected_letter and not st.session_state.winner:
                             st.session_state.winner = "Computer"
                             st.session_state.msg = "🤖 O robô fechou três símbolos primeiro!"
                 
-                # Verifica se deu velha
                 if not st.session_state.winner and get_computer_move(st.session_state.board) is None:
                     st.session_state.winner = "Tie"
                     st.session_state.msg = "🤝 Empate! Deu velha no tabuleiro."
@@ -285,7 +291,7 @@ if st.session_state.selected_letter and not st.session_state.winner:
 if st.session_state.last_heard:
     st.info(f"📻 O computador ouviu você falar isso: **'{st.session_state.last_heard}'**")
 
-# Botão de reinício festivo (Troca as letras ao resetar a rodada)
+# Botão de final de jogo tradicional
 if st.session_state.winner:
     st.success(st.session_state.msg)
     if st.button("🎪 Iniciar Nova Rodada (Mudar Letras)", type="secondary", use_container_width=True):
