@@ -5,7 +5,7 @@ import io
 import string
 
 # Configuração da página e injeção de estilos de festa animados
-st.set_page_config(page_title="Jogo da Velha do Alfabeto em Inglês", layout="centered")
+st.set_page_config(page_title="Magic English Tic-Tac-Toe", layout="centered")
 
 # Estilos CSS Avançados para Animações Festivas, Notas Dançantes e Fogos de Artifício
 st.markdown("""
@@ -192,7 +192,7 @@ for r_idx, linha in enumerate(linhas_indices):
                 symbol = "<span style='color: #2ecc71; font-size:60px;'>⭕</span>" if content == 'O' else "<span style='color: #e74c3c; font-size:60px;'>❌</span>"
                 st.markdown(f"<div style='text-align: center; height: 110px; line-height: 110px; {border_style}'>{symbol}</div>", unsafe_allow_html=True)
             else:
-                # Letras em fontes cartoon e coloridas dinamicamente que DANÇAM (Estão fixas na posição!)
+                # Letras coloridas e festivas que DANÇAM
                 cor_letra = COLOR_MAP[i]
                 st.markdown(f"<div class='letter-box' style='color: {cor_letra}; {border_style}'>{content}</div>", unsafe_allow_html=True)
                 
@@ -272,7 +272,7 @@ if st.session_state.selected_letter and not st.session_state.winner:
                             st.session_state.winner = "Computer"
                             st.session_state.msg = "🤖 O robô fechou três símbolos primeiro!"
                 
-                # Verifica se deu velha (tabuleiro cheio e ninguém ganhou)
+                # Verifica se deu velha
                 if not st.session_state.winner and get_computer_move(st.session_state.board) is None:
                     st.session_state.winner = "Tie"
                     st.session_state.msg = "🤝 Empate! Deu velha no tabuleiro."
@@ -285,7 +285,7 @@ if st.session_state.selected_letter and not st.session_state.winner:
 if st.session_state.last_heard:
     st.info(f"📻 O computador ouviu você falar isso: **'{st.session_state.last_heard}'**")
 
-# Botão de reinício festivo (SÓ AQUI AS LETRAS VÃO MUDAR PARA O PRÓXIMO JOGO!)
+# Botão de reinício festivo (Troca as letras ao resetar a rodada)
 if st.session_state.winner:
     st.success(st.session_state.msg)
     if st.button("🎪 Iniciar Nova Rodada (Mudar Letras)", type="secondary", use_container_width=True):
